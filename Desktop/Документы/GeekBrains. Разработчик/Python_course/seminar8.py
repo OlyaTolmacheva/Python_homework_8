@@ -43,6 +43,30 @@ def search_contacts(file):
             search_result.append(contact)
     return search_result
 
+def edit_contact(f):
+    res = search_contacts(f)
+    print_contacts(res)
+    select_contact = int(input('Выберите индекс контакта для изменения: '))
+    all_contacts = get_contacts_from_file(f)
+    last_name = input('Введите фамилию для изменения или Enter, если оставить прежнюю: ')
+    first_name = input('Введите имя для изменения или Enter, если оставить прежнее: ')
+    patronymic = input('Введите отчество для изменения или Enter, если оставить прежнее: ')
+    phone_number = input('Введите номер телефона для изменения или Enter, если оставить прежний: ')
+    if len(last_name) > 0:
+        all_contacts[select_contact][1] = last_name
+    if len(first_name) > 0:
+        all_contacts[select_contact][2] = first_name
+    if len(patronymic) > 0:
+        all_contacts[select_contact][3] = patronymic
+    if len(phone_number) > 0:
+        all_contacts[select_contact][4] = phone_number
+    print(all_contacts)
+    res = []
+    for i in all_contacts:
+        res.append(f"{','.join(i[1:])}\n")
+    print(res)
+    with open(f, 'w', encoding='utf-8') as fd:
+        fd.writelines(res)
 
 
 def main():
